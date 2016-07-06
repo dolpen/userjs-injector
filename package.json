@@ -1,0 +1,28 @@
+{
+  "name": "userjs-injector",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "watchify -t babelify ./src/background.js ./src/content.js ./src/popup.js  -p [ factor-bundle -o ./public/background.js -o ./public/content.js -o ./public/popup.js ] -o ./public/common.js -v",
+    "build:bundle": "browserify -t babelify ./src/background.js ./src/content.js ./src/popup.js  -p [ factor-bundle -o ./public/background.js -o ./public/content.js -o ./public/popup.js ] -o ./public/common.js -v",
+    "build:uglify": "files=(background content popup common); for i in \"${files[@]}\"; do uglifyjs --compress --mangle -o ./public/$i.js ./public/$i.build.js; rm -f ./public/$i.build.js; done",
+    "build":"npm run build:bundle && npm run build:uglify"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.9.0",
+    "babelify": "^7.3.0",
+    "watchify": "^3.7.0",
+    "factor-bundle": "^2.5.0",
+    "uglify-js": "^2.6.2"
+  },
+  "dependencies": {
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "babelify": "^7.3.0",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0"
+  }
+}
